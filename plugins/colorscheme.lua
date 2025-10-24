@@ -1,0 +1,48 @@
+vim.pack.add({
+  { src = "https://github.com/catppuccin/nvim", name = "catppuccin" },
+})
+
+require("catppuccin").setup({
+  lsp_styles = {
+    underlines = {
+      errors = { "undercurl" },
+      hints = { "undercurl" },
+      warnings = { "undercurl" },
+      information = { "undercurl" },
+    },
+  },
+  integrations = {
+    aerial = true,
+    blink_cmp = true,
+    cmp = false,
+    dap = true,
+    dap_ui = true,
+    dashboard = false,
+    flash = true,
+    fzf = false,
+    gitsigns = true,
+    grug_far = true,
+    harpoon = true,
+    headlines = true,
+    indent_blankline = { enabled = false },
+    illuminate = false,
+    lsp_trouble = true,
+    render_markdown = true,
+    mini = { enabled = true },
+    nvimtree = false,
+    neotree = false,
+    neogit = false,
+    neotest = true,
+    noice = true,
+    overseer = true,
+    ufo = false,
+    snacks = true,
+    telescope = {
+      enabled = false,
+    },
+    treesitter_context = false,
+    which_key = true,
+  },
+})
+
+vim.cmd.colorscheme("catppuccin")
