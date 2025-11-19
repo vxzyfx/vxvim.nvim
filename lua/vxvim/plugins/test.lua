@@ -1,19 +1,3 @@
-vim.pack.add({
-  { src = "https://github.com/nvim-neotest/neotest" },
-  { src = "https://github.com/nvim-neotest/neotest-python" },
-  { src = "https://github.com/nvim-neotest/nvim-nio" },
-  { src = "https://github.com/sidlatau/neotest-dart" },
-  { src = "https://github.com/llllvvuu/neotest-foundry" },
-  { src = "https://github.com/fredrikaverpil/neotest-golang" },
-  { src = "https://github.com/alfaix/neotest-gtest" },
-  { src = "https://github.com/mmllr/neotest-swift-testing" },
-  { src = "https://github.com/lawrence-laz/neotest-zig" },
-  { src = "https://github.com/marilari88/neotest-vitest" },
-  { src = "https://github.com/nsidorenco/neotest-vstest" },
-  { src = "https://github.com/rcasia/neotest-java" },
-  { src = "https://github.com/codymikol/neotest-kotlin" },
-})
-
 local set = vim.keymap.set
 
 require("neotest").setup({
@@ -33,8 +17,8 @@ require("neotest").setup({
     ["neotest-vitest"] = {},
     ["neotest-vstest"] = {},
     ["neotest-swift-testing"] = {},
-    ["neotest-java"] = {},
-    ["neotest-kotlin"] = {},
+    -- ["neotest-java"] = {},
+    -- ["neotest-kotlin"] = {},
   },
   status = { virtual_text = true },
   output = { open_on_run = true },

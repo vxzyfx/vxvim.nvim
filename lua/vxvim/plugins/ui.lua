@@ -1,13 +1,6 @@
-vim.pack.add({
-  { src = "https://github.com/folke/edgy.nvim" },
-  { src = "https://github.com/folke/snacks.nvim" },
-  { src = "https://github.com/nvim-lualine/lualine.nvim" },
-  { src = "https://github.com/akinsho/bufferline.nvim" },
-  { src = "https://github.com/MunifTanjim/nui.nvim" },
-  { src = "https://github.com/folke/noice.nvim" },
-})
-
 local set = vim.keymap.set
+local vxvim = require("vxvim")
+local icons = vxvim.config.icons
 
 local function term_nav(dir)
   ---@param self snacks.terminal
@@ -175,30 +168,7 @@ require("snacks").setup({
   },
 })
 
-set("n", "<leader>n", function() Snacks.notifier.show_history() end, {
-  desc = "Notification History",
-})
-
-set("n", "<leader>un", function() Snacks.notifier.hide() end, {
-  desc = "Dismiss All Notifications",
-})
-
-set("n", "<leader>fe", function() Snacks.explorer() end, {
-  desc = "Explorer Snacks (root dir)",
-})
-
-set("n", "<leader>fE", function() Snacks.explorer() end, {
-  desc = "Explorer Snacks (cwd)",
-})
-
-set("n", "<leader>e", function() Snacks.explorer() end, {
-  desc = "Explorer Snacks (root dir)",
-})
-
-set("n", "<leader>E", function() Snacks.explorer() end, {
-  desc = "Explorer Snacks (cwd)",
-})
-
+-- Top Pickers & Explorer
 set("n", "<leader><space>", function() Snacks.picker.smart() end, {
   desc = "Smart Find Files",
 })
@@ -208,19 +178,23 @@ set("n", "<leader>,", function() Snacks.picker.buffers() end, {
 })
 
 set("n", "<leader>/", function() Snacks.picker.grep() end, {
-  desc = "Grep (Root Dir)",
+  desc = "Grep",
 })
 
 set("n", "<leader>:", function() Snacks.picker.command_history() end, {
   desc = "Command History",
 })
-
-set("n", "<leader>fb", function() Snacks.picker.buffers() end, {
-  desc = "Buffers",
+set("n", "<leader>n", function() Snacks.notifier.show_history() end, {
+  desc = "Notification History",
 })
 
-set("n", "<leader>fB", function() Snacks.picker.buffers({ hidden = true, nofile = true }) end, {
-  desc = "Buffers (all)",
+set("n", "<leader>e", function() Snacks.explorer() end, {
+  desc = "Explorer Snacks",
+})
+
+-- find
+set("n", "<leader>fb", function() Snacks.picker.buffers() end, {
+  desc = "Buffers",
 })
 
 set("n", "<leader>fc", function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end, {
@@ -228,31 +202,36 @@ set("n", "<leader>fc", function() Snacks.picker.files({ cwd = vim.fn.stdpath("co
 })
 
 set("n", "<leader>ff", function() Snacks.picker.files() end, {
-  desc = "Find Files (Root Dir)",
-})
-
-set("n", "<leader>fF", function() Snacks.picker.files({ root = false }) end, {
-  desc = "Find Files (cwd)",
+  desc = "Find Files",
 })
 
 set("n", "<leader>fg", function() Snacks.picker.git_files() end, {
-  desc = "Find Files (git-files)",
-})
-
-set("n", "<leader>fr", function() Snacks.picker.recent() end, {
-  desc = "Recent",
-})
-
-set("n", "<leader>fR", function() Snacks.picker.recent({ filter = { cwd = true } }) end, {
-  desc = "Recent (cwd)",
+  desc = "Find Git Files",
 })
 
 set("n", "<leader>fp", function() Snacks.picker.projects() end, {
   desc = "Projects",
 })
 
-set("n", "<leader>gd", function() Snacks.picker.git_diff() end, {
-  desc = "Git Diff (hunks)",
+set("n", "<leader>fr", function() Snacks.picker.recent() end, {
+  desc = "Recent",
+})
+
+-- git
+set("n", "<leader>gb", function() Snacks.picker.git_branches() end, {
+  desc = "Git Branches",
+})
+
+set({ "n", "x" }, "<leader>gB", function() Snacks.gitbrowse() end, { desc = "Git Browse (open)" })
+
+set("n", "<leader>gg", function() Snacks.lazygit() end, { desc = "Lazygit" })
+
+set("n", "<leader>gl", function() Snacks.picker.git_log() end, {
+  desc = "Git Log",
+})
+
+set("n", "<leader>gL", function() Snacks.picker.git_log_line() end, {
+  desc = "Git Log Line",
 })
 
 set("n", "<leader>gs", function() Snacks.picker.git_status() end, {
@@ -263,6 +242,19 @@ set("n", "<leader>gS", function() Snacks.picker.git_stash() end, {
   desc = "Git Stash",
 })
 
+set("n", "<leader>gd", function() Snacks.picker.git_diff() end, {
+  desc = "Git Diff (hunks)",
+})
+
+set("n", "<leader>gf", function() Snacks.picker.git_log_file() end, {
+  desc = "Git Log File",
+})
+
+set({ "n", "x" }, "<leader>gY", function()
+  Snacks.gitbrowse({ open = function(url) vim.fn.setreg("+", url) end, notify = false })
+end, { desc = "Git Browse (copy)" })
+
+-- Grep
 set("n", "<leader>sb", function() Snacks.picker.lines() end, {
   desc = "Buffer Lines",
 })
@@ -272,21 +264,14 @@ set("n", "<leader>sB", function() Snacks.picker.grep_buffers() end, {
 })
 
 set("n", "<leader>sg", function() Snacks.picker.grep() end, {
-  desc = "Grep (Root Dir)",
-})
-
-set("n", "<leader>sG", function() Snacks.picker.grep({ root = false }) end, {
-  desc = "Grep (cwd)",
+  desc = "Grep",
 })
 
 set({ "n", "x" }, "<leader>sw", function() Snacks.picker.grep_word() end, {
-  desc = "Visual selection or word (Root Dir)",
+  desc = "Visual selection or word",
 })
 
-set({ "n", "x" }, "<leader>sW", function() Snacks.picker.grep_word({ root = false }) end, {
-  desc = "Visual selection or word (cwd)",
-})
-
+-- search
 set("n", '<leader>s"', function() Snacks.picker.registers() end, {
   desc = "Registers",
 })
@@ -363,18 +348,7 @@ set("n", "<leader>uC", function() Snacks.picker.colorschemes() end, {
   desc = "Colorschemes",
 })
 
-set("n", "<leader>.", function() Snacks.scratch() end, {
-  desc = "Toggle Scratch Buffer",
-})
-
-set("n", "<leader>S", function() Snacks.scratch.select() end, {
-  desc = "Select Scratch Buffer",
-})
-
-set("n", "<leader>dps", function() Snacks.profiler.scratch() end, {
-  desc = "Profiler Scratch Buffer",
-})
-
+-- LSP
 set("n", "gd", function() Snacks.picker.lsp_definitions() end, {
   desc = "Goto Definition",
 })
@@ -393,7 +367,15 @@ set("n", "gI", function() Snacks.picker.lsp_implementations() end, {
 })
 
 set("n", "gy", function() Snacks.picker.lsp_type_definitions() end, {
-  desc = "Goto Type Definition",
+  desc = "Goto T[y]pe Definition",
+})
+
+set("n", "gai", function() Snacks.picker.lsp_incoming_calls() end, {
+  desc = "C[a]lls Incoming",
+})
+
+set("n", "gao", function() Snacks.picker.lsp_outgoing_calls() end, {
+  desc = "C[a]lls Outgoing",
 })
 
 set("n", "<leader>ss", function() Snacks.picker.lsp_symbols() end, {
@@ -402,6 +384,47 @@ set("n", "<leader>ss", function() Snacks.picker.lsp_symbols() end, {
 
 set("n", "<leader>sS", function() Snacks.picker.lsp_workspace_symbols() end, {
   desc = "LSP Workspace Symbols",
+})
+
+-- Other
+set("n", "<leader>z", function() Snacks.zen() end, {
+  desc = "Toggle Zen Mode",
+})
+
+set("n", "<leader>Z", function() Snacks.zen.zoom() end, {
+  desc = "Toggle Zoom",
+})
+
+set("n", "<leader>.", function() Snacks.scratch() end, {
+  desc = "Toggle Scratch Buffer",
+})
+
+set("n", "<leader>S", function() Snacks.scratch.select() end, {
+  desc = "Select Scratch Buffer",
+})
+
+set("n", "<leader>cR", function() Snacks.rename.rename_file() end, {
+  desc = "Rename File",
+})
+
+set("n", "<leader>un", function() Snacks.notifier.hide() end, {
+  desc = "Dismiss All Notifications",
+})
+
+set("n", "<leader>dps", function() Snacks.profiler.scratch() end, {
+  desc = "Profiler Scratch Buffer",
+})
+
+set("n", "<c-/>", function() Snacks.terminal() end, {
+  desc = "Toggle Terminal",
+})
+
+set({ "n", "t" }, "]]", function() Snacks.words.jump(vim.v.count1) end, {
+  desc = "Next Reference",
+})
+
+set({ "n", "t" }, "[[", function() Snacks.words.jump(-vim.v.count1) end, {
+  desc = "Prev Reference",
 })
 
 -- toggle options
@@ -429,75 +452,6 @@ Snacks.toggle.zen():map("<leader>uz")
 
 if vim.lsp.inlay_hint then Snacks.toggle.inlay_hints():map("<leader>uh") end
 
-local icons = {
-  misc = {
-    dots = "󰇘",
-  },
-  ft = {
-    octo = "",
-  },
-  dap = {
-    Stopped = { "󰁕 ", "DiagnosticWarn", "DapStoppedLine" },
-    Breakpoint = " ",
-    BreakpointCondition = " ",
-    BreakpointRejected = { " ", "DiagnosticError" },
-    LogPoint = ".>",
-  },
-  diagnostics = {
-    Error = " ",
-    Warn = " ",
-    Hint = " ",
-    Info = " ",
-  },
-  git = {
-    added = " ",
-    modified = " ",
-    removed = " ",
-  },
-  kinds = {
-    Array = " ",
-    Boolean = "󰨙 ",
-    Class = " ",
-    Codeium = "󰘦 ",
-    Color = " ",
-    Control = " ",
-    Collapsed = " ",
-    Constant = "󰏿 ",
-    Constructor = " ",
-    Copilot = " ",
-    Enum = " ",
-    EnumMember = " ",
-    Event = " ",
-    Field = " ",
-    File = " ",
-    Folder = " ",
-    Function = "󰊕 ",
-    Interface = " ",
-    Key = " ",
-    Keyword = " ",
-    Method = "󰊕 ",
-    Module = " ",
-    Namespace = "󰦮 ",
-    Null = " ",
-    Number = "󰎠 ",
-    Object = " ",
-    Operator = " ",
-    Package = " ",
-    Property = " ",
-    Reference = " ",
-    Snippet = "󱄽 ",
-    String = " ",
-    Struct = "󰆼 ",
-    Supermaven = " ",
-    TabNine = "󰏚 ",
-    Text = " ",
-    TypeParameter = " ",
-    Unit = " ",
-    Value = " ",
-    Variable = "󰀫 ",
-  },
-}
-
 require("bufferline").setup({
   highlights = require("catppuccin.special.bufferline").get_theme(),
   options = {
@@ -506,8 +460,8 @@ require("bufferline").setup({
     diagnostics = "nvim_lsp",
     always_show_bufferline = false,
     diagnostics_indicator = function(_, _, diag)
-      local ret = (diag.error and icons.Error .. diag.error .. " " or "")
-        .. (diag.warning and icons.Warn .. diag.warning or "")
+      local ret = (diag.error and icons.diagnostics.Error .. diag.error .. " " or "")
+        .. (diag.warning and icons.diagnostics.Warn .. diag.warning or "")
       return vim.trim(ret)
     end,
     offsets = {

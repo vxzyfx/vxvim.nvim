@@ -1,15 +1,3 @@
-vim.pack.add({
-  { src = "https://github.com/MagicDuck/grug-far.nvim" },
-  { src = "https://github.com/folke/flash.nvim" },
-  { src = "https://github.com/folke/which-key.nvim" },
-  { src = "https://github.com/lewis6991/gitsigns.nvim" },
-  { src = "https://github.com/folke/trouble.nvim" },
-  { src = "https://github.com/folke/todo-comments.nvim" },
-  { src = "https://github.com/stevearc/aerial.nvim" },
-  { src = "https://github.com/ThePrimeagen/harpoon", version = "harpoon2" },
-  { src = "https://github.com/ThePrimeagen/refactoring.nvim" },
-})
-
 local set = vim.keymap.set
 
 set({ "n", "v" }, "<leader>sr", function()

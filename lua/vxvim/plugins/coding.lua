@@ -1,12 +1,3 @@
-vim.pack.add({
-  { src = "https://github.com/echasnovski/mini.pairs" },
-  { src = "https://github.com/nvim-mini/mini.ai" },
-  { src = "https://github.com/folke/ts-comments.nvim" },
-  { src = "https://github.com/windwp/nvim-ts-autotag" },
-  { src = "https://github.com/folke/lazydev.nvim" },
-  { src = "https://github.com/saghen/blink.cmp" },
-})
-
 require("lazydev").setup({
   library = {
     { path = "${3rd}/luv/library", words = { "vim%.uv" } },

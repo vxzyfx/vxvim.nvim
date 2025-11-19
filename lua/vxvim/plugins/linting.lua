@@ -1,7 +1,3 @@
-vim.pack.add({
-  { src = "https://github.com/mfussenegger/nvim-lint" },
-})
-
 local lint = require("lint")
 
 lint.events = { "BufWritePost", "BufReadPost", "InsertLeave" }

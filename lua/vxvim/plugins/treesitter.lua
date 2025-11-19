@@ -1,8 +1,3 @@
-vim.pack.add({
-  { src = "https://github.com/nvim-treesitter/nvim-treesitter" },
-  { src = "https://github.com/nvim-treesitter/nvim-treesitter-textobjects" },
-})
-
 vim.filetype.add({
   extension = {
     gotmpl = "gotmpl",
