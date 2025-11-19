@@ -12,7 +12,7 @@ vim.pack.add({
   { src = "https://github.com/folke/ts-comments.nvim" },
   { src = "https://github.com/windwp/nvim-ts-autotag" },
   { src = "https://github.com/folke/lazydev.nvim" },
-  { src = "https://github.com/saghen/blink.cmp" },
+  { src = "https://github.com/saghen/blink.cmp", version = vim.version.range("^1") },
   -- dap
   { src = "https://github.com/mfussenegger/nvim-dap" },
   { src = "https://github.com/rcarriga/nvim-dap-ui" },
