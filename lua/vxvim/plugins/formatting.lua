@@ -7,6 +7,8 @@ require("conform").setup({
   },
   formatters_by_ft = {
     cs = { "csharpier" },
+    css = { "prettier" },
+    html = { "prettier" },
     sh = { "shfmt", "shellcheck" },
     zsh = { "shfmt", "shellcheck" },
     go = { "goimports", "gofumpt" },
@@ -15,20 +17,20 @@ require("conform").setup({
     php = { "php_cs_fixer" },
     kotlin = { "ktlint" },
     python = { "isort", "black" },
-    ["markdown"] = { "prettier", "markdownlint-cli2" },
-    ["markdown.mdx"] = { "prettier", "markdownlint-cli2" },
+    typescript = { "prettier", "injected" },
+    javascript = { "prettier", "injected" },
+    ["markdown"] = { "prettier", "markdownlint-cli2", "injected" },
+    ["markdown.mdx"] = { "prettier", "markdownlint-cli2", "injected" },
   },
   formatters = {
-    injected = { options = { ignore_errors = true } },
+    injected = {
+      options = {
+        ignore_errors = true,
+      },
+    },
     csharpier = {
       command = "csharpier",
       args = { "format" },
-    },
-    ["markdownlint-cli2"] = {
-      condition = function(_, ctx)
-        local diag = vim.tbl_filter(function(d) return d.source == "markdownlint" end, vim.diagnostic.get(ctx.buf))
-        return #diag > 0
-      end,
     },
   },
 })

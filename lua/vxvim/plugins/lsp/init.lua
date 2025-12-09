@@ -7,5 +7,5 @@ require("vxvim.plugins.lsp.rust")
 
 local vxvim = require("vxvim")
 for _, lsp in pairs(vxvim.config.lsp_servers) do
-  --vim.lsp.enable(lsp)
+  vim.lsp.enable(lsp)
 end

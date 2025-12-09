@@ -9,8 +9,12 @@ vim.filetype.add({
   },
 })
 require("nvim-treesitter.configs").setup({
-  highlight = { enable = true },
+  highlight = { enable = true, additional_vim_regex_highlighting = false },
   indent = { enable = true },
+  sync_install = false,
+  auto_install = true,
+  ignore_install = {},
+  modules = {},
   ensure_installed = {
     "asm",
     "bash",
@@ -22,6 +26,8 @@ require("nvim-treesitter.configs").setup({
     "dart",
     "diff",
     "dockerfile",
+    "elixir",
+    "erlang",
     "go",
     "gomod",
     "gowork",
@@ -57,6 +63,7 @@ require("nvim-treesitter.configs").setup({
     "printf",
     "python",
     "query",
+    "racket",
     "regex",
     "rust",
     "ron",
