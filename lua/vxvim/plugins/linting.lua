@@ -1,6 +1,5 @@
 local lint = require("lint")
 
-lint.events = { "BufWritePost", "BufReadPost", "InsertLeave" }
 lint.linters_by_ft = {
   fish = { "fish" },
   sh = { "shellcheck" },
@@ -9,10 +8,9 @@ lint.linters_by_ft = {
   php = { "phpcs" },
   kotlin = { "ktlint" },
   markdown = { "markdownlint-cli2" },
-  -- Use the "*" filetype to run linters on all filetypes.
-  -- ['*'] = { 'global linter' },
-  -- Use the "_" filetype to run linters on filetypes that don't have other linters configured.
-  -- ['_'] = { 'fallback linter' },
-  -- ["*"] = { "typos" },
 }
-lint.linters = {}
+
+vim.api.nvim_create_autocmd({ "BufWritePost", "BufReadPost", "InsertLeave" }, {
+  group = vim.api.nvim_create_augroup("vxvim_nvim_lint", { clear = true }),
+  callback = function() require("lint").try_lint() end,
+})
