@@ -30,7 +30,6 @@ set("c", "<c-s>", function() require("flash").toggle() end, { desc = "Toggle Fla
 
 require("which-key").setup({
   preset = "helix",
-  defaults = {},
   spec = {
     {
       mode = { "n", "v" },
@@ -89,7 +88,7 @@ require("gitsigns").setup({
     changedelete = { text = "▎" },
   },
   on_attach = function(buffer)
-    local gs = package.loaded.gitsigns
+    local gs = require("gitsigns")
 
     local function map(mode, l, r, desc) vim.keymap.set(mode, l, r, { buffer = buffer, desc = desc }) end
 
@@ -113,7 +112,7 @@ require("gitsigns").setup({
         map({ "n", "v" }, "<leader>ghs", ":Gitsigns stage_hunk<CR>", "Stage Hunk")
         map({ "n", "v" }, "<leader>ghr", ":Gitsigns reset_hunk<CR>", "Reset Hunk")
         map("n", "<leader>ghS", gs.stage_buffer, "Stage Buffer")
-        map("n", "<leader>ghu", gs.undo_stage_hunk, "Undo Stage Hunk")
+        map({ "n", "v" }, "<leader>ghu", ":Gitsigns stage_hunk<CR>", "Toggle Stage Hunk")
         map("n", "<leader>ghR", gs.reset_buffer, "Reset Buffer")
         map("n", "<leader>ghp", gs.preview_hunk_inline, "Preview Hunk Inline")
         map("n", "<leader>ghb", function() gs.blame_line({ full = true }) end, "Blame Line")
@@ -158,7 +157,7 @@ end, { desc = "Next Trouble/Quickfix Item" })
 require("todo-comments").setup({})
 
 set("n", "]t", function() require("todo-comments").jump_next() end, { desc = "Next Todo Comment" })
-set("n", "[t", function() require("todo-comments").jump_next() end, { desc = "Previous Todo Comment" })
+set("n", "[t", function() require("todo-comments").jump_prev() end, { desc = "Previous Todo Comment" })
 set("n", "<leader>xt", "<cmd>Trouble todo toggle<cr>", { desc = "Todo (Trouble)" })
 set(
   "n",
@@ -167,7 +166,7 @@ set(
   { desc = "Todo/Fix/Fixme (Trouble)" }
 )
 set("n", "<leader>st", "<cmd>TodoTelescope<cr>", { desc = "Todo" })
-set("n", "<leader>sT", "<cmd>TodoTelescope keywords=TODO,FIX,FIXME<<cr>", { desc = "Todo/Fix/Fixme" })
+set("n", "<leader>sT", "<cmd>TodoTelescope keywords=TODO,FIX,FIXME<cr>", { desc = "Todo/Fix/Fixme" })
 
 require("aerial").setup({
   attach_mode = "global",
@@ -237,24 +236,19 @@ require("refactoring").setup({
 })
 
 set({ "n", "v" }, "<leader>r", "", { desc = "+refactor" })
-set("v", "<leader>rs", function() require("refactoring").select_refactor() end, { desc = "Refactor", expr = true })
+set("v", "<leader>rs", function() require("refactoring").select_refactor() end, { desc = "Refactor" })
 set(
   { "n", "v" },
   "<leader>ri",
   function() require("refactoring").refactor("Inline Variable") end,
-  { desc = "Inline Variable", expr = true }
+  { desc = "Inline Variable" }
 )
-set(
-  "n",
-  "<leader>rb",
-  function() require("refactoring").refactor("Extract Block") end,
-  { desc = "Extract Block", expr = true }
-)
+set("n", "<leader>rb", function() require("refactoring").refactor("Extract Block") end, { desc = "Extract Block" })
 set(
   "n",
   "<leader>rf",
   function() require("refactoring").refactor("Extract Block To File") end,
-  { desc = "Extract Block To File", expr = true }
+  { desc = "Extract Block To File" }
 )
 set("n", "<leader>rP", function() require("refactoring").debug.printf({ below = false }) end, { desc = "Debug Print" })
 set("n", "<leader>rc", function() require("refactoring").debug.cleanup({}) end, { desc = "Debug Cleanup" })
@@ -262,19 +256,19 @@ set(
   "v",
   "<leader>rf",
   function() require("refactoring").refactor("Extract Function") end,
-  { desc = "Extract Function", expr = true }
+  { desc = "Extract Function" }
 )
 set(
   "v",
   "<leader>rF",
   function() require("refactoring").refactor("Extract Function To File") end,
-  { desc = "Extract Function To File", expr = true }
+  { desc = "Extract Function To File" }
 )
 set(
   "v",
   "<leader>rx",
   function() require("refactoring").refactor("Extract Variable") end,
-  { desc = "Extract Variable", expr = true }
+  { desc = "Extract Variable" }
 )
 set(
   { "n", "v" },
