@@ -52,8 +52,8 @@ vim.pack.add({
   -- { src = "https://github.com/rcasia/neotest-java" },
   -- { src = "https://github.com/codymikol/neotest-kotlin" },
   -- treesitter
-  { src = "https://github.com/nvim-treesitter/nvim-treesitter" },
-  { src = "https://github.com/nvim-treesitter/nvim-treesitter-textobjects" },
+  { src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "master" },
+  { src = "https://github.com/nvim-treesitter/nvim-treesitter-textobjects", version = "master" },
   -- ui
   { src = "https://github.com/folke/edgy.nvim" },
   { src = "https://github.com/folke/snacks.nvim" },
