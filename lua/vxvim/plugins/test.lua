@@ -1,24 +1,26 @@
 local set = vim.keymap.set
 
+-- neotest expects `adapters` as a list of adapter instances. Each adapter is
+-- either a static module (use `require("name")`) or a callable that accepts
+-- options (use `require("name")(opts)`). Per consensus delta Δ6:
+--   static:    rustaceanvim.neotest, neotest-foundry, neotest-gtest,
+--              neotest-zig, neotest-swift-testing
+--   callable:  neotest-dart, neotest-golang, neotest-python, neotest-vitest,
+--              neotest-vstest
 require("neotest").setup({
   adapters = {
-    ["rustaceanvim.neotest"] = {},
-    ["neotest-dart"] = {
-      command = "flutter",
-      use_lsp = true,
-    },
-    ["neotest-foundry"] = {},
-    ["neotest-golang"] = {
-      dap_go_enabled = true, -- requires leoluz/nvim-dap-go
-    },
-    ["neotest-gtest"] = {},
-    ["neotest-python"] = {},
-    ["neotest-zig"] = {},
-    ["neotest-vitest"] = {},
-    ["neotest-vstest"] = {},
-    ["neotest-swift-testing"] = {},
-    -- ["neotest-java"] = {},
-    -- ["neotest-kotlin"] = {},
+    require("rustaceanvim.neotest"),
+    require("neotest-dart")({ command = "flutter", use_lsp = true }),
+    require("neotest-foundry"),
+    require("neotest-golang")({ dap = { justMyCode = false } }),
+    require("neotest-gtest"),
+    require("neotest-python")({ dap = { justMyCode = false }, runner = "pytest" }),
+    require("neotest-zig"),
+    require("neotest-vitest"),
+    require("neotest-vstest"),
+    require("neotest-swift-testing"),
+    -- require("neotest-java"),
+    -- require("neotest-kotlin"),
   },
   status = { virtual_text = true },
   output = { open_on_run = true },
