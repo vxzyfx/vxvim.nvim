@@ -1,4 +1,25 @@
 local set = vim.keymap.set
+
+local dap = require("dap")
+local dapui = require("dapui")
+
+dapui.setup()
+require("nvim-dap-virtual-text").setup({})
+require("dap-go").setup()
+
+-- Python adapter is optional: don't fail startup if dap-python isn't installed
+local ok_dap_py, dap_py = pcall(require, "dap-python")
+if ok_dap_py then dap_py.setup("python3") end
+
+-- Auto-open / auto-close the dap UI on session lifecycle events
+dap.listeners.before.attach.dapui_config = function() dapui.open() end
+dap.listeners.before.launch.dapui_config = function() dapui.open() end
+dap.listeners.before.event_terminated.dapui_config = function() dapui.close() end
+dap.listeners.before.event_exited.dapui_config = function() dapui.close() end
+
+set("n", "<leader>du", function() dapui.toggle() end, { desc = "Dap UI" })
+set({ "n", "v" }, "<leader>de", function() dapui.eval() end, { desc = "Eval" })
+
 ---@param config {type?:string, args?:string[]|fun():string[]?}
 local function get_args(config)
   local args = type(config.args) == "function" and (config.args() or {}) or config.args or {} --[[@as string[] | string ]]
