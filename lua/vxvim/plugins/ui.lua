@@ -536,7 +536,6 @@ require("lualine").setup({
     },
     lualine_x = {
       Snacks.profiler.status(),
-      "overseer",
             -- stylua: ignore
             -- {
             --   function() return require("noice").api.status.command.get() end,
@@ -588,7 +587,7 @@ require("lualine").setup({
       function() return " " .. os.date("%R") end,
     },
   },
-  extensions = {},
+  extensions = { "overseer" },
 })
 
 require("noice").setup({

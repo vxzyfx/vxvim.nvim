@@ -28,14 +28,13 @@ require("conform").setup({
         ignore_errors = true,
       },
     },
-    csharpier = {
-      command = "csharpier",
-      args = { "format" },
-    },
+    -- csharpier override removed: rely on conform's bundled definition,
+    -- which handles stdin/stdout flow correctly across csharpier 1.x/2.x.
   },
 })
 
 vim.api.nvim_create_autocmd("BufWritePre", {
+  group = vim.api.nvim_create_augroup("vxvim_conform_format_on_save", { clear = true }),
   pattern = "*",
   callback = function(args) require("conform").format({ bufnr = args.buf }) end,
 })

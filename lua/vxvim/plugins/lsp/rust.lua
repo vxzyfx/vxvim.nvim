@@ -1,22 +1,26 @@
+-- One-shot crates.nvim setup (must NOT be re-run from a per-buffer autocmd —
+-- it registers global autocmds + cmp/blink sources). Buffer-local keymaps
+-- still go in a Cargo.toml autocmd.
+require("crates").setup({
+  completion = {
+    crates = {
+      enabled = true,
+    },
+  },
+  lsp = {
+    enabled = true,
+    actions = true,
+    completion = true,
+    hover = true,
+  },
+})
+
 local grp = vim.api.nvim_create_augroup("Vxvim.rust", { clear = true })
 
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   group = grp,
   pattern = "Cargo.toml",
   callback = function(ev)
-    require("crates").setup({
-      completion = {
-        crates = {
-          enabled = true,
-        },
-      },
-      lsp = {
-        enabled = true,
-        actions = true,
-        completion = true,
-        hover = true,
-      },
-    })
     vim.keymap.set("n", "<leader>ct", function() require("crates").toggle() end, {
       desc = "Crates Toggle",
       buffer = ev.buf,
@@ -58,7 +62,8 @@ vim.g.rustaceanvim = vim.tbl_deep_extend("keep", vim.g.rustaceanvim or {}, {
       ["rust-analyzer"] = {
         cargo = {
           allFeatures = true,
-          loadOutDirsFromCheck = true,
+          -- loadOutDirsFromCheck removed: deprecated in rust-analyzer 0.4+
+          -- in favor of cargo.buildScripts.enable below
           buildScripts = {
             enable = true,
           },
