@@ -50,8 +50,6 @@ require("blink.cmp").setup({
   },
 })
 
-vim.lsp.enable("lua_ls")
-
 require("mini.pairs").setup({
   modes = { insert = true, command = true, terminal = false },
 })
