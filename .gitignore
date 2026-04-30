@@ -1,0 +1,51 @@
+# Vim / Neovim editor artifacts
+*.swp
+*.swo
+*.swn
+*~
+.netrwhist
+Session.vim
+.session
+
+# Compiled / cached Lua
+*.luac
+.luarocks/
+lua_modules/
+
+# Tags
+tags
+.tags
+TAGS
+.TAGS
+
+# Operating system files
+.DS_Store
+.DS_Store?
+._*
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Editor / IDE meta (other than the tracked .claude content below)
+.idea/
+.vscode/
+*.code-workspace
+
+# Local Claude Code overrides — keep team-shared settings.json tracked,
+# ignore the private/local one. (None tracked yet; uncomment if you add one.)
+.claude/settings.local.json
+
+# OMC orchestration runtime state — never commit.
+.omc/
+.omc/state/
+.omc/logs/
+.omc/research/
+.omc/notepad.md
+.omc/project-memory.json
+
+# Plugin manager scratch (vim.pack.add installs to stdpath('data'); these guards are
+# only relevant if the user runs nvim with this dir as XDG_CONFIG_HOME)
+plugin/packer_compiled.lua
+.lazy.nvim
+lazy-lock.json
