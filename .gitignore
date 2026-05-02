@@ -49,3 +49,5 @@ $RECYCLE.BIN/
 plugin/packer_compiled.lua
 .lazy.nvim
 lazy-lock.json
+.opencode/
+.sisyphus/
