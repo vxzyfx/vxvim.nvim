@@ -493,7 +493,7 @@ set("n", "]B", "<cmd>BufferLineMoveNext<cr>", { desc = "Move buffer next" })
 
 require("lualine").setup({
   options = {
-    theme = "catppuccin",
+    theme = "catppuccin-nvim",
     globalstatus = vim.o.laststatus == 3,
     disabled_filetypes = { statusline = { "dashboard", "alpha", "ministarter", "snacks_dashboard" } },
   },
