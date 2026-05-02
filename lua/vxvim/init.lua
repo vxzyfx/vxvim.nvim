@@ -28,6 +28,7 @@ vim.pack.add({
   { src = "https://github.com/folke/todo-comments.nvim" },
   { src = "https://github.com/stevearc/aerial.nvim" },
   { src = "https://github.com/ThePrimeagen/harpoon", version = "harpoon2" },
+  { src = "https://github.com/lewis6991/async.nvim" },
   { src = "https://github.com/ThePrimeagen/refactoring.nvim" },
   -- formatting
   { src = "https://github.com/stevearc/conform.nvim" },
