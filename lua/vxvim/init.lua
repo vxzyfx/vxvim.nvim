@@ -55,6 +55,7 @@ vim.pack.add({
   -- treesitter
   { src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "master" },
   { src = "https://github.com/nvim-treesitter/nvim-treesitter-textobjects", version = "master" },
+  { src = "https://github.com/romus204/tree-sitter-manager.nvim" },
   -- ui
   { src = "https://github.com/folke/edgy.nvim" },
   { src = "https://github.com/folke/snacks.nvim" },

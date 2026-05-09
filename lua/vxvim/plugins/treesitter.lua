@@ -8,13 +8,7 @@ vim.filetype.add({
     ["helmfile.*%.ya?ml"] = "helm",
   },
 })
-require("nvim-treesitter.configs").setup({
-  highlight = { enable = true, additional_vim_regex_highlighting = false },
-  indent = { enable = true },
-  sync_install = false,
-  auto_install = true,
-  ignore_install = {},
-  modules = {},
+require("tree-sitter-manager").setup({
   ensure_installed = {
     "asm",
     "bash",
@@ -42,7 +36,6 @@ require("nvim-treesitter.configs").setup({
     "javascript",
     "jsdoc",
     "json",
-    "jsonc",
     "json5",
     "ini",
     "kconfig",
@@ -56,7 +49,6 @@ require("nvim-treesitter.configs").setup({
     "markdown_inline",
     "nix",
     "ninja",
-    "norg",
     "objc",
     "php",
     "proto",
@@ -85,6 +77,13 @@ require("nvim-treesitter.configs").setup({
     "yaml",
     "zig",
   },
+  auto_install = true,
+  highlight = false,
+})
+require("nvim-treesitter.configs").setup({
+  highlight = { enable = true, additional_vim_regex_highlighting = false },
+  indent = { enable = true },
+  modules = {},
   incremental_selection = {
     enable = true,
     keymaps = {
