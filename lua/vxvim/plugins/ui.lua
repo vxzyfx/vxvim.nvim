@@ -348,6 +348,8 @@ set("n", "<leader>uC", function() Snacks.picker.colorschemes() end, {
 })
 
 -- LSP
+set("n", "gb", "<C-o>", { desc = "Go to Back", remap = true })
+
 set("n", "gd", function() Snacks.picker.lsp_definitions() end, {
   desc = "Goto Definition",
 })
