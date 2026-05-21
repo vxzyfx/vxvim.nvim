@@ -1,4 +1,68 @@
 local set = vim.keymap.set
+local vxvim = require("vxvim")
+local executable = require("vxvim.util.executable")
+
+local adapter_specs = {
+  {
+    name = "rustaceanvim.neotest",
+    executable = vxvim.config.neotest_executables["rustaceanvim.neotest"],
+    factory = function() return require("rustaceanvim.neotest") end,
+  },
+  {
+    name = "neotest-dart",
+    executable = vxvim.config.neotest_executables["neotest-dart"],
+    factory = function() return require("neotest-dart")({ command = "flutter", use_lsp = true }) end,
+  },
+  {
+    name = "neotest-foundry",
+    executable = vxvim.config.neotest_executables["neotest-foundry"],
+    factory = function() return require("neotest-foundry") end,
+  },
+  {
+    name = "neotest-golang",
+    executable = vxvim.config.neotest_executables["neotest-golang"],
+    factory = function() return require("neotest-golang")({ dap = { justMyCode = false } }) end,
+  },
+  {
+    name = "neotest-gtest",
+    executable = vxvim.config.neotest_executables["neotest-gtest"],
+    factory = function() return require("neotest-gtest") end,
+  },
+  {
+    name = "neotest-python",
+    executable = vxvim.config.neotest_executables["neotest-python"],
+    factory = function() return require("neotest-python")({ dap = { justMyCode = false }, runner = "pytest" }) end,
+  },
+  {
+    name = "neotest-zig",
+    executable = vxvim.config.neotest_executables["neotest-zig"],
+    factory = function() return require("neotest-zig") end,
+  },
+  {
+    name = "neotest-vitest",
+    executable = vxvim.config.neotest_executables["neotest-vitest"],
+    factory = function() return require("neotest-vitest") end,
+  },
+  {
+    name = "neotest-vstest",
+    executable = vxvim.config.neotest_executables["neotest-vstest"],
+    factory = function() return require("neotest-vstest") end,
+  },
+  {
+    name = "neotest-swift-testing",
+    executable = vxvim.config.neotest_executables["neotest-swift-testing"],
+    factory = function() return require("neotest-swift-testing") end,
+  },
+  -- require("neotest-java"),
+  -- require("neotest-kotlin"),
+}
+
+local adapters = {}
+
+for _, spec in ipairs(adapter_specs) do
+  local result = executable.evaluate(spec.executable)
+  if result.available then table.insert(adapters, spec.factory()) end
+end
 
 -- neotest expects `adapters` as a list of adapter instances. Each adapter is
 -- either a static module (use `require("name")`) or a callable that accepts
@@ -8,20 +72,7 @@ local set = vim.keymap.set
 --   callable:  neotest-dart, neotest-golang, neotest-python, neotest-vitest,
 --              neotest-vstest
 require("neotest").setup({
-  adapters = {
-    require("rustaceanvim.neotest"),
-    require("neotest-dart")({ command = "flutter", use_lsp = true }),
-    require("neotest-foundry"),
-    require("neotest-golang")({ dap = { justMyCode = false } }),
-    require("neotest-gtest"),
-    require("neotest-python")({ dap = { justMyCode = false }, runner = "pytest" }),
-    require("neotest-zig"),
-    require("neotest-vitest"),
-    require("neotest-vstest"),
-    require("neotest-swift-testing"),
-    -- require("neotest-java"),
-    -- require("neotest-kotlin"),
-  },
+  adapters = adapters,
   status = { virtual_text = true },
   output = { open_on_run = true },
 })

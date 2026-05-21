@@ -53,7 +53,6 @@ vim.pack.add({
   -- { src = "https://github.com/rcasia/neotest-java" },
   -- { src = "https://github.com/codymikol/neotest-kotlin" },
   -- treesitter
-  { src = "https://github.com/nvim-treesitter/nvim-treesitter" },
   { src = "https://github.com/romus204/tree-sitter-manager.nvim" },
   -- ui
   { src = "https://github.com/folke/edgy.nvim" },
@@ -192,9 +191,7 @@ M.config = {
     "elp",
     "expert",
     "gopls",
-    "jsonls",
     "lua_ls",
-    "neocmake",
     "nixd",
     "tailwindcss",
     "vue_ls",
@@ -203,12 +200,47 @@ M.config = {
     "solidity", -- prefer "solidity_ls_nomicfoundation" for Hardhat/Foundry projects
     "sourcekit",
     "helm_ls",
-    "yamlls",
     "zls",
+  },
+  lsp_executables = {
+    astro = { "astro-ls" },
+    basedpyright = { "basedpyright-langserver" },
+    bashls = { "bash-language-server" },
+    clangd = { "clangd" },
+    dockerls = { "docker-langserver" },
+    elp = { "elp" },
+    expert = { "expert" },
+    gopls = { "gopls" },
+    lua_ls = { "lua-language-server" },
+    nixd = { "nixd" },
+    tailwindcss = { "tailwindcss-language-server" },
+    vue_ls = { "vue-language-server" },
+    phpactor = { "phpactor" },
+    ruby_lsp = { "ruby-lsp" },
+    solidity = { "solidity-language-server", "nomicfoundation-solidity-language-server" },
+    sourcekit = { "sourcekit-lsp" },
+    helm_ls = { "helm_ls" },
+    zls = { "zls" },
+    denols = { "deno" },
+    vtsls = { "vtsls" },
+  },
+  neotest_executables = {
+    ["rustaceanvim.neotest"] = { "cargo" },
+    ["neotest-dart"] = { "flutter" },
+    ["neotest-foundry"] = { "forge" },
+    ["neotest-golang"] = { "go" },
+    ["neotest-gtest"] = { any = { "ctest", "cmake" } },
+    ["neotest-python"] = { any = { "pytest", "python", "python3" } },
+    ["neotest-zig"] = { "zig" },
+    ["neotest-vitest"] = { any = { "vitest", "npx", "pnpm", "npm" } },
+    ["neotest-vstest"] = { "dotnet" },
+    ["neotest-swift-testing"] = { "swift" },
   },
 }
 
 function M.setup(opts)
+  M.config = vim.tbl_deep_extend("force", M.config, opts or {})
+
   if vim.fs.root(0, { "deno.json", "deno.jsonc" }) then
     table.insert(M.config.lsp_servers, "denols")
   else
@@ -226,6 +258,7 @@ function M.setup(opts)
   require("vxvim.plugins.dap")
   require("vxvim.plugins.http")
   require("vxvim.plugins.task")
+  require("vxvim.plugins.test")
   require("vxvim.plugins.lsp")
 end
 

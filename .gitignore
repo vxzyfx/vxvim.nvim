@@ -51,3 +51,4 @@ plugin/packer_compiled.lua
 lazy-lock.json
 .opencode/
 .sisyphus/
+/.omo
