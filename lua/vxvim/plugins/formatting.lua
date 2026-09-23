@@ -6,6 +6,7 @@ require("conform").setup({
     lsp_format = "fallback", -- not recommended to change
   },
   formatters_by_ft = {
+    cmake = { "gersemi" },
     cs = { "csharpier" },
     css = { "prettier" },
     html = { "prettier" },

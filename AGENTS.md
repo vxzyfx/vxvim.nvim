@@ -62,7 +62,7 @@
 
 - **No lazy.nvim spec keys.** Do not add `lazy = true`, `event = ...`, `ft = ...`, etc. This is native `vim.pack.add`, not lazy.nvim.
 - **No telescope / fzf-lua / neo-tree.** Snacks.nvim already covers pickers, explorer, and git. Do not add alternatives.
-- **Do not add plugin-managed languages to `lsp_servers`.** Rust, C#, Flutter, CMake, JSON/YAML (SchemaStore), Markdown are handled by plugins in `plugins/lsp/`. Adding them to `lsp_servers` would cause double startup.
+- **Do not add plugin-managed languages to `lsp_servers`.** Rust, C#, Flutter, JSON/YAML (SchemaStore), Markdown are handled by plugins in `plugins/lsp/`. Adding them to `lsp_servers` would cause double startup. Exception: CMake — `neocmake` LSP is native (in `lsp_servers`); `cmake-tools.nvim` only handles build integration and never starts an LSP.
 - **Do not disable format-on-save conditionally.** The autocmd in `plugins/formatting.lua` is unconditional (`pattern = "*"`).
 - **Do not put an `init.lua` at repo root.** This is a library, not a standalone application.
 

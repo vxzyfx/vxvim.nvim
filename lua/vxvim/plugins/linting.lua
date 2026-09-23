@@ -4,7 +4,6 @@ lint.linters_by_ft = {
   fish = { "fish" },
   sh = { "shellcheck" },
   zsh = { "shellcheck" },
-  cmake = { "cmakelint" },
   php = { "phpcs" },
   kotlin = { "ktlint" },
   markdown = { "markdownlint-cli2" },

@@ -22,7 +22,7 @@ lua/vxvim/plugins/lsp/
 | Rust | `rust.lua` | rustaceanvim + crates.nvim |
 | C# | `csharp.lua` | roslyn.nvim |
 | Flutter/Dart | `flutter.lua` | flutter-tools.nvim |
-| CMake | `cmake.lua` | cmake-tools.nvim |
+| CMake | `cmake.lua` | cmake-tools.nvim (build tooling only; `neocmake` LSP is native via `lsp_servers`) |
 | JSON / YAML | `json.lua` | SchemaStore.nvim |
 | Markdown | `markdown.lua` | render-markdown.nvim |
 
@@ -35,6 +35,6 @@ lua/vxvim/plugins/lsp/
 
 ## ANTI-PATTERNS
 
-- **Never add these languages to `lsp_servers`** in `init.lua`. Doing so causes the plugin and native `vim.lsp.enable` to both start the same server.
+- **Never add these languages to `lsp_servers`** in `init.lua`. Doing so causes the plugin and native `vim.lsp.enable` to both start the same server. Exception: CMake — `neocmake` is a plain language server enabled natively through `lsp_servers`/`lsp_executables`; `cmake.lua` only sets up cmake-tools.nvim, which manages builds and never registers an LSP.
 - **Never call `vim.lsp.enable()` for plugin-managed servers.** The plugin handles registration.
 - **Do not put buffer-local crates.nvim setup in a global autocmd.** It only needs `require("crates").setup()` once.
