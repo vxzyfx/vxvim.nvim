@@ -4,6 +4,9 @@ local kulala = require("kulala")
 local set = vim.keymap.set
 
 kulala.setup({
+  default_view = "body",
+  default_env = "dev",
+  debug = false,
   ui = {
     max_response_size = 320000,
   },
@@ -13,6 +16,7 @@ kulala.setup({
 })
 
 set("n", "<leader>R", "", { desc = "+Rest" })
+set("n", "<leader>Ra", function() kulala.run_all() end, { desc = "Send all requests", buffer = buf })
 set("n", "<leader>Rb", function() kulala.scratchpad() end, { desc = "Open scratchpad", buffer = buf })
 set("n", "<leader>Rc", function() kulala.copy() end, { desc = "Copy as cURL", buffer = buf })
 set("n", "<leader>RC", function() kulala.from_curl() end, { desc = "Paste from curl", buffer = buf })
